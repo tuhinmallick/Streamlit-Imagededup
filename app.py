@@ -26,8 +26,7 @@ def clean_directory(dir):
 
 @st.cache(allow_output_mutation=True, show_spinner=False, suppress_st_warning=True)
 def create_dataframe():
-    df = pd.DataFrame(columns=['duplicate_images'])
-    return df
+    return pd.DataFrame(columns=['duplicate_images'])
 
 @st.experimental_memo
 def convert_df(df):
@@ -37,8 +36,7 @@ def convert_df(df):
 def find_duplicate_imgs():
     phasher = PHash()
     encodings = phasher.encode_images(image_dir='uploads/')
-    duplicates = phasher.find_duplicates_to_remove(encoding_map=encodings)
-    return duplicates
+    return phasher.find_duplicates_to_remove(encoding_map=encodings)
 
 
 if __name__ == '__main__':
@@ -50,7 +48,7 @@ if __name__ == '__main__':
     st.info(' Let me help you find exact and near duplicates in an image collection 😉')
 
     uploaded_files = st.file_uploader("Upload Images 🚀", type=["png","jpg","bmp","jpeg"], accept_multiple_files=True)
-    with st.spinner(f"Finding duplicates... This may take several minutes depending on the number of images uploaded 💫"):
+    with st.spinner("Finding duplicates... This may take several minutes depending on the number of images uploaded 💫"):
         if uploaded_files:
             for uploaded_file in uploaded_files:
                 with open(os.path.join("uploads/",uploaded_file.name),"wb") as f:
